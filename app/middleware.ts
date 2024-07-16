@@ -1,9 +1,13 @@
-import { authMiddleware } from "@clerk/nextjs/server";
-
+import { authMiddleware } from "@clerk/nextjs";
+ 
 export default authMiddleware({
-  ignoredRoutes: ["/api/webhooks(.*)"],
+  // // Routes that can be accessed while signed out
+  publicRoutes: ['/', '/api/webhooks/clerk'],
+  // ignoredRoutes: ["/((?!api|trpc))(_next.*|.+\.[\w]+$)", "/sign-in"]
+ 
+
 });
 
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
