@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Webhook } from "svix";
 
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
+import { log } from "console";
 export async function POST(req: NextRequest) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
@@ -59,6 +60,8 @@ export async function POST(req: NextRequest) {
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
 
+    console.log(evt.data);
+
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
@@ -78,6 +81,8 @@ export async function POST(req: NextRequest) {
         },
       });
     }
+
+    console.log(newUser);
 
     return NextResponse.json({ message: "OK", user: newUser });
   }
