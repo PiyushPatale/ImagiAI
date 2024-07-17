@@ -1,11 +1,25 @@
+// import { authMiddleware } from "@clerk/nextjs";
+ 
+// export default authMiddleware({
+//   publicRoutes: ['/', '/api/webhooks/clerk'],
+ 
+
+// });
+
+// export const config = {
+//   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+// };
+
 import { authMiddleware } from "@clerk/nextjs";
  
 export default authMiddleware({
-  publicRoutes: ['/', '/api/webhooks/clerk'],
+  // // Routes that can be accessed while signed out
+  publicRoutes: ['/', '/api/webhooks/clerk', '/api/webhooks/stripe'],
+  // ignoredRoutes: ["/((?!api|trpc))(_next.*|.+\.[\w]+$)", "/sign-in"]
  
 
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).)", "/", "/(api|trpc)(.)"],
 };
