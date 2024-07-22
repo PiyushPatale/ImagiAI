@@ -12,7 +12,7 @@ export async function createUser(user: CreateUserParams) {
     await connectToDatabase();
 
     console.log("Connected");
-    console.log(user);
+    console.log(User);
 
     const newUser = await User.create(user);
     console.log("Created user: ", newUser);
@@ -84,7 +84,8 @@ export async function updateCredits(userId: string, creditFee: number) {
 
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: userId },
-      { $inc: { creditBalance: creditFee }},
+      { $inc: { credits: creditFee }},
+      // creditBalance
       { new: true }
     )
 
